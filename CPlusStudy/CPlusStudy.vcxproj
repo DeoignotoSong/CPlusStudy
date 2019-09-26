@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -152,15 +152,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CPlusStudy.cpp" />
-    <ClCompile Include="FileReader.cpp" />
-    <ClCompile Include="getConfig.cpp" />
+    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="Helper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FileReader.h" />
-    <ClInclude Include="getConfig.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="Helper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini" />
+    <None Include="thostmduserapi_se.dll" />
+    <None Include="thosttraderapi_se.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="thostmduserapi_se.lib" />
+    <Library Include="thosttraderapi_se.lib" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

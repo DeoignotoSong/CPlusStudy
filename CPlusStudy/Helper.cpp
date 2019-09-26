@@ -1,6 +1,5 @@
 #pragma  once
-#include "getconfig.h"
-#include "FileReader.h"
+#include "Helper.h"
 
 /*函数名称：getConfig()
 函数功能：获取配置文件ini中相应大标题title下指定配置字段cfgname的值
@@ -8,16 +7,16 @@
 参数2：string cfgName		大标题下的配置字段
 返回值：配置文件ini中相应大标题title下指定配置字段cfgname的值
 */
-string getConfig(string title, string cfgName)
+std::string Helper::GetConfig(std::string title, std::string cfgName)
 {
-	string curpath = curPath();
+	string curpath = this->CurPath();
 	const char* INIFile = "config.ini";
 	ifstream inifile(INIFile);
 	if (!inifile.is_open())
 	{
 		cerr << "Could not open " << INIFile << endl;
 		inifile.clear();
-		_getch();
+
 		exit(-1);
 	}
 	string strtmp, strtitle, strcfgname, returnValue;
@@ -60,6 +59,63 @@ string getConfig(string title, string cfgName)
 		}
 	}
 	cout << "配置文件错误：没找到" << title << "对应配置项" << cfgName << "！" << endl;
-	_getch();
+
 	exit(-1);
+}
+
+void Helper::InitializeInstruments()
+{
+	string callAuctionInstrumentsFilePath = this->GetConfig("config", "CallAuctionInstrumentsFile");
+	char buffer[256];
+	ifstream in(callAuctionInstrumentsFilePath);
+
+	if (!in.is_open()) {
+		cout << "Appear error when opening instruments_1.ini file." << endl;
+
+		exit(1);
+	}
+	else
+	{
+		cout << "Open file success." << endl;
+	}
+
+	while (!in.eof())
+	{
+		in.getline(buffer, 100);
+		string line = buffer;
+		vector<string> instrumentsProperties = this->Split(line, ",");
+		Instrument currentInstrument;
+		currentInstrument.instrumentId = instrumentsProperties[1];
+		currentInstrument.position = stoi(instrumentsProperties[2]);
+		callAuctionInstruments[instrumentsProperties[1]] = currentInstrument;
+	}
+}
+
+vector<string> Helper::Split(const string& s, const string& c)
+{
+	vector<string> v;
+	string::size_type pos1, pos2;
+	pos2 = s.find(c);
+	pos1 = 0;
+	while (std::string::npos != pos2)
+	{
+		v.push_back(s.substr(pos1, pos2 - pos1));
+
+		pos1 = pos2 + c.size();
+		pos2 = s.find(c, pos1);
+	}
+	if (pos1 != s.length())
+		v.push_back(s.substr(pos1));
+
+	return v;
+}
+
+std::string Helper::CurPath()
+{
+	LPWSTR buffer = new wchar_t[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	wstring ws(buffer);
+	string str = string(ws.begin(), ws.end());
+	string::size_type pos = str.find_last_of("\\/");
+	return str.substr(0, pos);
 }

@@ -11,7 +11,17 @@
 #include <sstream>
 #include <locale.h>
 #include <vector>
+#include "Global.h"
 
 using namespace std;
 
-string getConfig(string title, string cfgName);
+class Helper
+{
+public:
+	std::string GetConfig(std::string title, std::string cfgName);
+	void InitializeInstruments();
+	vector<string> Split(const string& s, const string& c);
+private:
+	std::string CurPath();
+};
+

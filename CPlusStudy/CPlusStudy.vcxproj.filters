@@ -18,18 +18,18 @@
     <ClCompile Include="CPlusStudy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="getConfig.cpp">
+    <ClCompile Include="Helper.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="FileReader.cpp">
+    <ClCompile Include="Global.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="getConfig.h">
+    <ClInclude Include="Global.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="FileReader.h">
+    <ClInclude Include="Helper.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -37,5 +37,19 @@
     <None Include="config.ini">
       <Filter>资源文件</Filter>
     </None>
+    <None Include="thostmduserapi_se.dll">
+      <Filter>资源文件</Filter>
+    </None>
+    <None Include="thosttraderapi_se.dll">
+      <Filter>资源文件</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="thostmduserapi_se.lib">
+      <Filter>资源文件</Filter>
+    </Library>
+    <Library Include="thosttraderapi_se.lib">
+      <Filter>资源文件</Filter>
+    </Library>
   </ItemGroup>
 </Project>

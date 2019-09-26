@@ -2,21 +2,22 @@
 //
 
 #include <iostream>
-#include "ThostFtdcMdApi.h"
-#include "CMdHandler.h"
-#include "CTraderHandler.h"
-#include "ThostFtdcTraderApi.h"
 #include <Windows.h>
 #include <direct.h>
-#include "getconfig.h"
-#include "FileReader.h"
+#include <queue>
+#include "ThostFtdcMdApi.h"
+#include "ThostFtdcTraderApi.h"
+#include "Helper.h"
+#include "Global.h"
 
 using namespace std;
 
 int main()
 {
+	Helper helper;
 	// 保存生成的log文件的文件夹路径
-	string logFilePath = getConfig("config", "LogFilesPath");
+	string logFilePath = helper.GetConfig("config", "LogFilesPath");
+	string CallAuctionInstrumentsFilePath = helper.GetConfig("config", "CallAuctionInstrumentsFile");
 
 	// 创建保存生成的log文件的文件夹
 	// folderCreatedResult：
@@ -30,6 +31,14 @@ int main()
 	else {
 		cout << "Log directory is already existed." << endl;
 	}
+
+	helper.InitializeInstruments();
+
+	for (auto &instrument: callAuctionInstruments) {
+		cout << instrument.second.instrumentId << ": " << instrument.second.position << endl;
+	}
+
+	CThostFtdcTraderApi* mUser = CThostFtdcTraderApi::CreateFtdcTraderApi();
 }
 
 // 运行程序: Ctrl + F5 或调试 >“开始执行(不调试)”菜单
